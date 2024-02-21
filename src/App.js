@@ -1,39 +1,33 @@
+import { images } from './db/Images.js'
+import Home from './pages/Home.js'
+import Task from './pages/Task/Task.js'
+import { useBrowser } from './context/Appcontext.js'
+import { useEffect } from 'react'
 
-import './App.css';
-import { useEffect, useState } from 'react';
 
-function App() {
-  const [quotes,setQuotes] = useState(null)
-  const url = 'https://api.api-ninjas.com/v1/quotes?category=success'
-  const key = 'qRWBZNZuBlc7bpeuQqsOaFwj9dMsZ8eFYzz7ZXLA'
+const App = () => {
+
+  const {name, browserDispatch} = useBrowser()
+  console.log(name)
+  
+  const index = Math.floor(Math.random() * images.length)
+  const image = images[index].image
 
   useEffect(()=>{
-    fetch(url, {
-      headers:{
-        'X-api-key': `${key}`
-      }
+    const userName = localStorage.getItem('name')
+    browserDispatch({
+      type: "NAME",
+      payload: userName
     })
-    .then(response=> response.json())
-    .then(data => {
-      setQuotes(data[0])
-    } )
-    .catch(error => console.log(error))
-  },[])
-
-
-
+  },[]) 
+  
   return (
-    <div className="App">
-      <h1>
-        {
-          quotes.quote
-        }
-      </h1>
-      <h1>
-        hello
-      </h1>
+    <div className='w-screen h-screen bg-cover bg-center' style={ {'backgroundImage': `url(${image})`}}>
+      {
+        name ? <Task/> : <Home/>
+      }
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
