@@ -5,13 +5,12 @@ import { useBrowser } from './context/Appcontext.js'
 import { useEffect } from 'react'
 
 
+const index = Math.floor(Math.random() * images.length)
+const image = images[index].image
+
 const App = () => {
 
   const {name, browserDispatch} = useBrowser()
-  console.log(name)
-  
-  const index = Math.floor(Math.random() * images.length)
-  const image = images[index].image
 
   useEffect(()=>{
     const userName = localStorage.getItem('name')

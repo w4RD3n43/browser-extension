@@ -12,6 +12,8 @@ const Home = () => {
         type: "NAME",
         payload: e.target.value
       })
+    } else if ( e.key === "Enter" && e.target.value.length === 0 ){
+      alert ("Enter Your Name")
     }
     localStorage.setItem('name', e.target.value)
   }

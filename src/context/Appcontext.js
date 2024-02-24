@@ -2,7 +2,10 @@ import React, { createContext, useContext, useReducer } from 'react';
 import { browserReducer } from '../reducer/Browser-reducer';
 
 const initialValue ={
-  name : ""
+  name : "",
+  time : "",
+  message:"",
+  task: ""
 }
 
 const AppContext = createContext(initialValue);
@@ -10,10 +13,13 @@ const AppContext = createContext(initialValue);
 
 const AppProvider = ({ children }) => {
 
-  const [{name}, browserDispatch] = useReducer(browserReducer, initialValue)
+  const [{name, time, message, task}, browserDispatch] = useReducer(browserReducer, initialValue)
 
   const value = {
     name,
+    time,
+    message,
+    task,
     browserDispatch
   }
 
