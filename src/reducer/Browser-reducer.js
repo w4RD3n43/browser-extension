@@ -18,8 +18,13 @@ export const browserReducer = (state, {type,payload}) => {
       case "TASK" : 
       return {
         ...state,
-        task : payload
+        task : payload      
       }
+      case "clear" :
+        return {
+          ...state,
+          task: null
+        }
       default:
         return state
     }

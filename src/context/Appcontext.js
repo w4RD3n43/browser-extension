@@ -5,7 +5,7 @@ const initialValue ={
   name : "",
   time : "",
   message:"",
-  task: ""
+  task: null
 }
 
 const AppContext = createContext(initialValue);

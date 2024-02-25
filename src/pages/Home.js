@@ -24,17 +24,17 @@ const Home = () => {
 
   return (
       <div className='Container text-white flex flex-row justify-center items-center w-screen h-screen relative'>
-        <div className='flex flex-col items-center max-w-screen-lg mx-auto bg-black bg-opacity-60 rounded-lg p-5 '>
+        <di v className='flex flex-col justify-center items-center max-w-screen-lg mx-auto bg-black bg-opacity-60 rounded-lg p-5 '>
           <span className='fredoka text-4xl md:text-6xl font-sans m-4 ' >
               Hello, What's Your Name 
           </span>
           <form onSubmit={submitHandler} >
             <input type='text' 
-            className="text-center fredoka bg-transparent border-b-2 text-2xl md:text-3xl text-white focus:outline-none"
+            className="text-center fredoka bg-transparent border-b-2 text-2xl md:text-3xl text-white focus:outline-none "
             onKeyDown={changeHandler}
             />
           </form>
-          </div>
+          </di>
         </div>
   )
 }
