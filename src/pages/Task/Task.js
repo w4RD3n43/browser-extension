@@ -1,9 +1,16 @@
+import {quotes } from '../../db/Quotes'
 import React, {  useEffect, useState } from 'react'
 import { useBrowser } from '../../context/Appcontext'
+import Todo from '../../Component/Todo/Todo'
+
+const quotesIndex = Math.floor(Math.random() * quotes.length)
+const quote = quotes[quotesIndex].quote
+
 
 const Task = () => {
 
   const [isChecked, setisChecked] = useState(false)
+  const [TodoOpen, setTodoOpen] = useState(false)
 
   const {message, name, time, task, browserDispatch } = useBrowser()
 
@@ -13,6 +20,11 @@ const Task = () => {
       type: "TASK",
       payload: userTask
     })
+    if(new Date().getDate() !== Number(localStorage.getItem('data'))){
+      localStorage.removeItem("TASK")
+      localStorage.removeItem("data")
+      localStorage.removeItem("checkedStatus")
+    }
   },[])
 
   useEffect(()=>{
@@ -52,7 +64,7 @@ const Task = () => {
         payload: e.target.value
       })
       localStorage.setItem("TASK", e.target.value)
-      localStorage.setItem("data", new Date())
+      localStorage.setItem("data", new Date().getDate())
     } else if (e.key === "Enter" && e.target.value.length === 0) {
       alert("Enter Task")
     }
@@ -75,11 +87,16 @@ const Task = () => {
     localStorage.setItem("checkedStatus", !isChecked)
   }
 
+  const handleToDoClick = (e) => {
+    e.preventDefault()
+    setTodoOpen(TodoOpen => !TodoOpen)
+  }
+
 
   return (  
     <div>
       <div className='Container text-white flex flex-col justify-center  w-screen h-screen relative p-4'>
-        <div className='flex flex-col items-center max-w-screen-lg mx-auto bg-black bg-opacity-60 rounded-lg p-4 '>
+        <div className='flex flex-col items-center max-w-screen-lg mx-auto bg-black bg-opacity-70 rounded-lg p-4 '>
           <span className='fredoka text-4xl md:text-6xl font-sans m-4 '>
             {time}
           </span>
@@ -103,7 +120,7 @@ const Task = () => {
               <h1 className='fredoka text-4xl mb-3'>
                 Today's Focus 
               </h1>
-              <div className='flex flex-col justify-center items-center'>
+              <div className='flex flex-col justify-center items-center bg-black bg-opacity-90 rounded-2xl'>
                 <div>
                   <label  className={` ${isChecked ? 'line-through ' : ' underline '} fredoka text-2xl hover:cursor-pointer`}>
                     <input  type='checkbox' className='m-2 hover:cursor-pointer' checked={isChecked} onChange={handleTaskChange} />
@@ -116,6 +133,24 @@ const Task = () => {
               </div>
             </div>
           ) }
+        </div>
+        <div className=' absolute bottom-5 right-1 w-screen flex  justify-center  text-white '>
+          <div className='bg-black bg-opacity-50 p-2 rounded-lg'>
+            <p className='fredoka text-xl'>
+              {quote}
+            </p>
+          </div>
+          <div className='absolute bottom-16 right-8 ' >
+          { TodoOpen && <Todo/> }
+            <div>
+              <button class="fredoka m-2 hover:bg-black hover:text-white font-bold py-2 px-4 border-b-2  hover:border-black rounded-full" 
+              onClick={handleToDoClick}
+              >
+                    ToDo
+              </button>
+          </div>
+          </div>
+
         </div>
       </div>
     </div>
