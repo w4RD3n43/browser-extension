@@ -1,4 +1,4 @@
-#Browser Extension
+##Browser Extension
 
 
 ####Welcome to My Awesome Browser Extension! This extension greets you, stores your name locally, greets you according to the time of day, displays a main task, includes a todo list, and shows a motivational quote at the bottom. It also removes all data if the day ends.
